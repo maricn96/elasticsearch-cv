@@ -1,0 +1,13 @@
+agm-map {
+  height: 400px;
+  max-width: 500;
+}
+
+
+/* mat-extension-panel:mat-expanded {
+  max-height: 500px;
+} */
+
+.mat-expanded {
+  min-height: 1200px;
+}

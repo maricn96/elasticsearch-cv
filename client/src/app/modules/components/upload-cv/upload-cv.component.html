@@ -1,0 +1,60 @@
+<div style="float: left;">
+<form [formGroup]="form" style="margin-left: 110px; margin-top: 100px;">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="applicantName" />
+  </mat-form-field><br />
+  <mat-form-field>
+    <mat-label>Surname</mat-label>
+    <input matInput type="text" formControlName="applicantSurname" />
+  </mat-form-field><br />
+  <mat-form-field>
+    <mat-label>Professional qualification level</mat-label>
+    <input matInput type="text" formControlName="qualificationLevel" />
+  </mat-form-field><br />
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="text" formControlName="email" />
+  </mat-form-field><br />
+  <mat-form-field>
+    <mat-label>Address(city)</mat-label>
+    <input matInput type="text" formControlName="address" (blur)="getLocationFromAddress()" />
+  </mat-form-field><br />
+  <p style="color: red;" *ngIf="addressNotValid"><strong>Adress is not valid!</strong></p>
+  <div style="margin-bottom: 20px; margin-top: 20px;">
+    <mat-label style="margin-right: 20px;">CV</mat-label>
+    <input type="file" accept="accept" color="primary" (change)="onAddFile($event)" />
+  </div>
+  <br />
+  <div style="margin-bottom: 20px;">
+    <mat-label style="margin-right: 20px;">Cover letter</mat-label>
+    <input type="file" accept="accept" color="primary" (change)="onAddClFile($event)" />
+  </div>
+  <button mat-raised-button color="accent" (click)="onClickUploadFiles()">Upload</button>
+  <br />
+  <p style="color: green;" *ngIf="uploaded"><strong>Application created!</strong></p>
+</form>
+</div>
+<br /><br />
+
+<!--
+<mat-form-field>
+  <mat-label>Latitude</mat-label>
+  <input matInput type="text" [(ngModel)]="markerLat" />
+</mat-form-field><br />
+<mat-form-field>
+  <mat-label>Longitude</mat-label>
+  <input matInput type="text" [(ngModel)]="markerLon" />
+</mat-form-field><br />
+<agm-map [latitude]="lat" [longitude]="lon" draggable="false"><agm-marker
+  [markerDraggable]="true"
+  [latitude]="markerLat"
+  [longitude]="markerLon"
+  (drag)="updateCoordinates($event)"
+></agm-marker></agm-map>
+
+-->
+
+
+
+

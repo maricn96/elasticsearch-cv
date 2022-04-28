@@ -1,0 +1,117 @@
+<!-- <form > -->
+<div style="margin-left: 110px; margin-top: 30px; margin-right: 100px; float: left;">
+  <mat-form-field style="margin-right: 80px;">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="searchTermName" (input)="onClickSearch()"/>
+  </mat-form-field>
+  <mat-checkbox style="margin-right: 80px;" class="example-margin" [(ngModel)]="phraseQueryName" (change)="onClickSearch()">Phrase query
+  </mat-checkbox>
+  <!-- <mat-radio-group [(ngModel)]="andOrName">
+    <mat-radio-button style="margin-right: 40px;" class="example-margin" value="andName">AND</mat-radio-button>
+    <mat-radio-button class="example-margin" value="orName">OR</mat-radio-button>
+  </mat-radio-group> -->
+  <br />
+  <mat-form-field style="margin-right: 80px;">
+    <mat-label>Surname</mat-label>
+    <input matInput type="text" [(ngModel)]="searchTermSurname" (input)="onClickSearch()"/>
+  </mat-form-field>
+  <mat-checkbox style="margin-right: 80px;" class="example-margin" [(ngModel)]="phraseQuerySurname" (change)="onClickSearch()">Phrase query
+  </mat-checkbox>
+  <!-- <mat-radio-group [(ngModel)]="andOrSurname">
+    <mat-radio-button style="margin-right: 40px;" class="example-margin" value="andSurname">AND</mat-radio-button>
+    <mat-radio-button class="example-margin" value="orSurname">OR</mat-radio-button>
+  </mat-radio-group> -->
+  <br />
+  <mat-form-field style="margin-right: 80px;">
+    <mat-label>Professional qualification level</mat-label>
+    <input matInput type="text" [(ngModel)]="searchTermQualificationLevel" (input)="onClickSearch()" />
+  </mat-form-field>
+  <br />
+  <mat-form-field style="margin-right: 80px;">
+    <mat-label>Cover letter content</mat-label>
+    <input matInput type="text" [(ngModel)]="searchTermCoverLetter" (input)="onClickSearch()" />
+  </mat-form-field>
+  <mat-checkbox style="margin-right: 80px;" class="example-margin" [(ngModel)]="phraseQueryCoverLetter" (change)="onClickSearch()">Phrase query
+  </mat-checkbox>
+  <br />
+  <br />
+  <mat-radio-group [(ngModel)]="andOrLogic" (change)="onClickSearch()">
+    <mat-radio-button style="margin-right: 40px;" class="example-margin" value="and">AND</mat-radio-button>
+    <mat-radio-button class="example-margin" value="or">OR</mat-radio-button>
+  </mat-radio-group>
+  <br /><br /><br />
+  <button mat-raised-button color="accent" (click)="onClickSearch()">Search</button>
+</div>
+<!-- </form> -->
+
+
+
+<div style="margin-left: 100px;">
+<h2>Geolocation search</h2>
+<mat-form-field>
+  <mat-label>Address(city)</mat-label>
+  <input matInput type="text" (blur)="getLocationFromAddress()" [(ngModel)]="address" />
+</mat-form-field>
+<p style="color: red;" *ngIf="addressNotValid"><strong>Adress is not valid!</strong></p>
+<mat-form-field style="margin-left: 50px;">
+  <mat-label>Latitude</mat-label>
+  <input matInput type="text" [(ngModel)]="markerLat" [disabled]="true" />
+</mat-form-field><br />
+<mat-form-field>
+  <mat-label>Distance [km]</mat-label>
+  <input matInput type="text" [(ngModel)]="distance" />
+</mat-form-field>
+<mat-form-field style="margin-left: 50px;">
+  <mat-label>Longitude</mat-label>
+  <input matInput type="text" [(ngModel)]="markerLon" [disabled]="true" />
+</mat-form-field><br />
+<button mat-raised-button color="accent" (click)="onClickSearchGeolocation()">Search</button>
+<br /><br />
+<agm-map [latitude]="lat" [longitude]="lon"><agm-marker
+  [markerDraggable]="true"
+  [latitude]="markerLat"
+  [longitude]="markerLon"
+  (drag)="updateCoordinates($event)"
+></agm-marker></agm-map>
+</div>
+
+<div style="margin-top: -150px;">
+  <mat-grid-list cols="6" rowHeight="1:2">
+    <mat-grid-tile *ngFor="let cv of filteredCvs">
+      <mat-card class="example-card"
+        style="margin-right: 50px; border-style: solid; border-color: #A700FF; border-radius: 2px;">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Name: <strong>{{ cv.applicantName }} {{ cv.applicantSurname }}</strong></mat-card-title>
+          <mat-card-subtitle>
+            Qualification level: <strong>{{ cv.qualificationLevel }}</strong><br />
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- <em style="background-color: red;">aa</em> -->
+          <h4>Cover letter content fragment:</h4>
+          <br />
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+          <mat-panel-title>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span [innerHtml]="cv.coverLetterContent"></span> <!--[style.em]="{'background-color': 'red'}" -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      </mat-expansion-panel>
+        </mat-card-content>
+        <!-- <img [src]="product.picture" alt="" width="200" height="200" /> -->
+        <!-- <mat-card-content>
+        <p>
+          {{ product.description }}
+        </p>
+      </mat-card-content> -->
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="downloadCv(cv.cvSqlId, cv.cvFileName)">Download CV</button>
+          <button mat-raised-button color="warn" (click)="deleteCv(cv.id)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
